@@ -103,7 +103,7 @@ async def chat_with_ai(request: Request, data: ChatRequest):
     - NUNCA cierres la conversación bruscamente. Si el cliente hace una pregunta, respóndela antes de pedirle otro dato.
     - Si el cliente dice "quiero más asesoría" o "cuéntame más", dale detalles de nuestros materiales, la durabilidad del oro 18k y opciones de personalización.
     - Destaca que el Oro 18k es la mejor inversión y no se oxida.
-    - Haz máximo 1 o 2 preguntas por mensaje para no abrumar. Deja que el cliente hable.
+    - Haz máximo 1 o 2 preguntas por mensaje para no abrumar. Deja que el cliente hable, habla en millones de pesos 2.000.000, 5.0000.0000, etc.
 
     REGLA DE CIERRE (CRÍTICA):
     SOLO cuando ya tengas los 4 datos (Nombre, Presupuesto, Tipo de joya con detalles, y Fecha/Hora), despídete con esta frase EXACTA al final de tu mensaje:
