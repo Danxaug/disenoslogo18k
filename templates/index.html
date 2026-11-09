@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseños Logo Oro 18k | Alta Joyería Cali</title>
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tudominio.com/"> 
+    <meta property="og:title" content="Diseños Logo Oro 18k | Alta Joyería en Cali">
+    <meta property="og:description" content="Descubre piezas únicas de oro 18k. Anillos de compromiso, cadenas y argollas personalizadas en C.C. Jardín Plaza, Cali.">
+    <meta property="og:image" content="https://tudominio.com/static/portada.jpg">
+    
+    <link rel="icon" href="/static/logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { darkBg: '#080808', darkCard: '#0f0f0f', gold: '#f59e0b', goldLight: '#fcd34d' },
+                    fontFamily: { cinzel: ['Cinzel', 'serif'], sans: ['Plus Jakarta Sans', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #080808; color: #ffffff; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .bento-card { transition: transform 0.3s ease, border-color 0.3s ease; }
+        .bento-card:hover { transform: translateY(-5px); border-color: #f59e0b; }
+        .glass-nav { background: transparent; text-shadow: 0px 2px 4px rgba(0,0,0,0.8); border-bottom: none; }
+        .gold-gradient-text { background: linear-gradient(to right, #fcd34d, #f59e0b); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-shine { position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .btn-shine::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%); transform: skewX(-25deg); transition: all 0.7s ease; z-index: 1; }
+        .btn-shine:hover::before { left: 150%; }
+        #chat-widget { display: none; }
+        .chat-message { max-width: 85%; padding: 12px 16px; border-radius: 15px; margin-bottom: 10px; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+        .chat-bot { background-color: #1a1a1a; border: 1px solid #333; border-bottom-left-radius: 0; color: #d1d5db; }
+        .chat-user { background-color: #f59e0b; color: #000; border-bottom-right-radius: 0; margin-left: auto; font-weight: 500; }
+        #imageModal { display: none; }
+        #modalImage { transition: transform 0.3s ease; cursor: zoom-in; }
+        #modalImage.zoomed { transform: scale(1.5); cursor: zoom-out; }
+        img { cursor: pointer; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <div class="bg-gold text-black text-center py-2 text-xs font-semibold tracking-wider uppercase relative z-50">
+        ✨ Atención personalizada en C.C. Jardín Plaza, Local 108 - Cali | Envíos Asegurados
+    </div>
+
+    <nav class="glass-nav fixed w-full z-40 top-0 mt-8">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="/" class="flex items-center">
+                <img src="/static/logo.png" alt="Logo" class="h-12 md:h-16 w-auto object-contain drop-shadow-lg">
+            </a>
+            <a href="https://wa.me/573174827958" target="_blank" class="hidden md:block border border-gold text-gold px-6 py-2 text-sm uppercase tracking-wider hover:bg-gold hover:text-black transition duration-300 backdrop-blur-sm bg-black/30">
+                Agendar Cita VIP
+            </a>
+        </div>
+    </nav>
+
+        <header class="pt-32 pb-20 px-6 relative flex items-center justify-center min-h-[90vh] overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center" style="background-image: url('/static/hero.jpg');"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto text-center px-4" data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-gold tracking-[0.3em] uppercase text-sm mb-6 font-semibold text-shadow">Alta Orfebrería en Cali</p>
+            
+            <!-- Título principal en BLANCO -->
+            <h1 class="text-5xl md:text-7xl font-cinzel font-bold leading-tight mb-4 tilt-content text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                Oro de 18k
+            </h1>
+            
+            <!-- Subtítulo en DORADO -->
+            <p class="text-base md:text-xl font-cinzel gold-gradient-text tracking-[0.2em] uppercase mb-8 font-bold">
+                Diseños únicos y personalizados
+            </p>
+
+            <p class="text-gray-300 text-base md:text-lg font-light mb-10 max-w-2xl mx-auto drop-shadow-lg">
+                Piezas hechas a medida con la pureza que mereces. Visítanos en el C.C. Jardín Plaza.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-20">
+                <a href="https://wa.me/573174827958" target="_blank" class="btn-shine bg-gold text-black font-semibold px-8 py-4 uppercase tracking-widest text-sm hover:bg-goldLight shadow-[0_0_15px_rgba(245,158,11,0.5)]">
+                    Contactar Asesor
+                </a>
+                <a href="#galeria" class="btn-shine border border-gray-500 text-white px-8 py-4 uppercase tracking-widest text-sm hover:border-gold hover:text-gold backdrop-blur-sm bg-black/20">
+                    Ver Colección
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="galeria" class="py-24 px-6 max-w-6xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-4xl font-cinzel mb-4 text-white">Nuestra Colección</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[250px]">
+            <div class="bento-card bg-darkCard border border-gray-800 rounded-lg overflow-hidden relative group md:col-span-2 md:row-span-2" data-aos="zoom-in" data-tilt data-tilt-max="5" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.2">
+                <img src="/static/anillo1.webp" alt="Anillo" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-700">
+                <div class="absolute bottom-0 left-0 p-8 bg-gradient-to-t from-black via-black/80 to-transparent w-full tilt-content pointer-events-none">
+                    <h3 class="font-cinzel text-2xl text-gold">Anillos de Compromiso</h3>
+                </div>
+            </div>
+            <div class="bento-card bg-darkCard border border-gray-800 rounded-lg overflow-hidden relative group" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-speed="400">
+                <img src="/static/anillo2.webp" alt="Argollas" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-700">
+                <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black to-transparent w-full tilt-content pointer-events-none">
+                    <h3 class="font-cinzel text-xl text-gold">Argollas</h3>
+                </div>
+            </div>
+            <div class="bento-card bg-darkCard border border-gray-800 rounded-lg overflow-hidden relative group" data-aos="zoom-in" data-tilt data-tilt-max="10" data-tilt-speed="400">
+                <img src="/static/cadena.webp" alt="Alta Joyería" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition duration-700">
+                <div class="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black to-transparent w-full tilt-content pointer-events-none">
+                    <h3 class="font-cinzel text-xl text-gold">Alta Joyería</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-darkCard border-y border-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex justify-between items-end mb-10">
+                <h2 class="text-3xl font-cinzel text-white mb-2">Piezas Destacadas</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="group">
+                    <div class="bg-darkBg border border-gray-800 rounded-lg overflow-hidden relative aspect-square mb-4" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                        <img src="/static/pulsera1.webp" alt="Pulsera" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <h3 class="text-white font-medium mb-1">Pulsera Tejida 18K</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-white font-bold">$612,000</span>
+                        <a href="https://wa.me/573174827958" target="_blank" class="btn-shine bg-gold text-black text-xs font-bold px-4 py-2 rounded hover:bg-goldLight transition">Comprar</a>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="bg-darkBg border border-gray-800 rounded-lg overflow-hidden relative aspect-square mb-4" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                        <img src="/static/pulsera2.webp" alt="Cadena" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <h3 class="text-white font-medium mb-1">Cadena Cubana 18K</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-white font-bold">$1,323,000</span>
+                        <a href="https://wa.me/573174827958" target="_blank" class="btn-shine bg-gold text-black text-xs font-bold px-4 py-2 rounded hover:bg-goldLight transition">Comprar</a>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="bg-darkBg border border-gray-800 rounded-lg overflow-hidden relative aspect-square mb-4" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                        <img src="/static/manilla.webp" alt="Manilla" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <h3 class="text-white font-medium mb-1">Manilla Elegante</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-white font-bold">$2,450,000</span>
+                        <a href="https://wa.me/573174827958" target="_blank" class="btn-shine bg-gold text-black text-xs font-bold px-4 py-2 rounded hover:bg-goldLight transition">Comprar</a>
+                    </div>
+                </div>
+                <div class="group">
+                    <div class="bg-darkBg border border-gray-800 rounded-lg overflow-hidden relative aspect-square mb-4" data-tilt data-tilt-max="15" data-tilt-speed="400" data-tilt-glare data-tilt-max-glare="0.3">
+                        <img src="/static/aretes.webp" alt="Aretes" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    </div>
+                    <h3 class="text-white font-medium mb-1">Aretes de Lujo</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-white font-bold">$1,850,000</span>
+                        <a href="https://wa.me/573174827958" target="_blank" class="btn-shine bg-gold text-black text-xs font-bold px-4 py-2 rounded hover:bg-goldLight transition">Comprar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-20 bg-darkBg">
+        <div class="max-w-3xl mx-auto px-6 text-center" data-aos="fade-up">
+            <h2 class="text-3xl md:text-5xl font-cinzel mb-4 text-white">Agenda tu Cita Privada</h2>
+            <p class="text-gray-400 mb-10">Déjanos tus datos y te contactaremos por WhatsApp.</p>
+            <form action="/procesar_pedido" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div>
+                    <label class="text-xs text-gray-500 uppercase tracking-wider ml-1">Nombre Completo</label>
+                    <input type="text" name="nombre" required class="w-full bg-darkCard border border-gray-700 text-white p-4 focus:border-gold focus:outline-none transition" placeholder="Ej: María Pérez">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 uppercase tracking-wider ml-1">WhatsApp</label>
+                    <input type="tel" name="telefono" required class="w-full bg-darkCard border border-gray-700 text-white p-4 focus:border-gold focus:outline-none transition" placeholder="Ej: 300 123 4567">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="text-xs text-gray-500 uppercase tracking-wider ml-1">¿Qué pieza te interesa?</label>
+                    <select name="interes" class="w-full bg-darkCard border border-gray-700 text-white p-4 focus:border-gold focus:outline-none transition">
+                        <option>Anillos de Compromiso</option>
+                        <option>Argollas de Matrimonio</option>
+                        <option>Diseño Personalizado</option>
+                        <option>Alta Joyería</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2 mt-4">
+                    <button type="submit" class="btn-shine w-full bg-gold text-black font-bold uppercase tracking-widest py-4 hover:bg-goldLight transition duration-300 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
+                        Solicitar Asesoría VIP
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center text-sm text-gray-600 border-t border-gray-900 bg-black">
+        <div class="flex justify-center mb-4">
+            <img src="/static/logo.png" alt="Logo" class="h-16 w-auto opacity-90 hover:opacity-100 transition">
+        </div>
+        <p class="mb-2">© 2024 Diseños Logo Oro 18k. Cali, Colombia.</p>
+        <p>C.C. Jardín Plaza, Local 108 | Tel: 602 394 71 89</p>
+    </footer>
+
+    <div id="imageModal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <button id="closeModal" class="absolute top-6 right-6 text-white text-5xl leading-none hover:text-gold transition">&times;</button>
+        <img id="modalImage" src="" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg shadow-2xl">
+    </div>
+
+    <button id="chat-toggle" class="btn-shine fixed bottom-6 right-6 bg-gold text-black p-4 rounded-full shadow-[0_0_20px_rgba(245,158,11,0.6)] hover:scale-110 transition duration-300 z-50 flex items-center gap-2 font-semibold">
+        Asesor IA
+    </button>
+    
+    <div id="chat-widget" class="fixed bottom-20 right-4 md:right-6 w-[350px] max-w-[calc(100vw-2rem)] bg-darkCard border border-gray-700 rounded-2xl shadow-2xl z-50 overflow-hidden flex flex-col h-[70vh] max-h-[500px]">
+        <div class="bg-black p-4 border-b border-gray-800 flex justify-between items-center shrink-0">
+            <div class="flex items-center gap-3">
+                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <h3 class="font-bold text-white text-sm">Asesor Comercial VIP</h3>
+            </div>
+            <button id="chat-close" class="text-gray-400 hover:text-white text-3xl leading-none px-2 cursor-pointer">&times;</button>
+        </div>
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-2">
+            <!-- Mensaje inicial persuasivo -->
+            <div class="chat-message chat-bot">Buenos días/tardes. ✨ Bienvenido(a) a <b>Diseños Logo Oro 18k</b>. Soy su asesor personal en alta joyería. Cuénteme, ¿en qué ocasión especial está pensando para adquirir una pieza? (Y si me regala su nombre, será un placer atenderle).</div>
+        </div>
+        <div class="p-3 border-t border-gray-800 bg-black flex gap-2 shrink-0">
+            <input type="text" id="chat-input" placeholder="Escribe tu mensaje..." class="flex-1 bg-darkBg text-white border border-gray-700 rounded-full px-4 py-2 text-sm focus:outline-none focus:border-gold">
+            <button id="chat-send" class="bg-gold text-black p-2 rounded-full hover:bg-goldLight transition">➤</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), { max: 15, speed: 400, glare: true, "max-glare": 0.2 });
+
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const closeModal = document.getElementById('closeModal');
+        const allImages = document.querySelectorAll('#galeria img, .group img');
+        allImages.forEach(img => {
+            img.addEventListener('click', (e) => {
+                e.stopPropagation(); modal.style.display = 'flex'; modalImg.src = img.src; modalImg.classList.remove('zoomed');
+            });
+        });
+        closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+        modalImg.addEventListener('click', () => { modalImg.classList.toggle('zoomed'); });
+
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatClose = document.getElementById('chat-close');
+        const chatWidget = document.getElementById('chat-widget');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+        const chatMessages = document.getElementById('chat-messages');
+
+        chatToggle.addEventListener('click', (e) => { 
+            e.preventDefault();
+            chatWidget.style.display = 'flex'; 
+            chatToggle.style.display = 'none'; 
+        });
+
+        chatClose.addEventListener('click', (e) => { 
+            e.preventDefault();
+            chatWidget.style.display = 'none'; 
+            chatToggle.style.display = 'flex'; 
+        });
+
+        function addMessage(text, sender) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `chat-message ${sender === 'user' ? 'chat-user' : 'chat-bot'}`;
+            if (sender === 'user') {
+                msgDiv.textContent = text; 
+            } else {
+                // Ocultamos el bloque de resumen en la vista del chat
+                let displayText = text.replace(/\[RESUMEN\][\s\S]*?\[\/RESUMEN\]/g, '').trim();
+                // Si solo quedó el texto de cierre, lo mostramos normal
+                msgDiv.innerHTML = displayText;
+            }
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function botTyping(callback) {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'chat-message chat-bot italic text-gray-500';
+            typingDiv.id = 'typing';
+            typingDiv.innerHTML = 'Escribiendo...';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            setTimeout(() => { document.getElementById('typing').remove(); callback(); }, 1000);
+        }
+
+        function removeEmojis(text) {
+            return text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E6}-\u{1F1FF}]/gu, '');
+        }
+
+        let chatHistory = [];
+
+        async function processUserMessage(msg) {
+            addMessage(msg, 'user');
+            chatHistory.push({ role: "user", content: msg });
+
+            botTyping(async () => {
+                try {
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            message: msg,
+                            history: chatHistory.slice(0, -1)
+                        })
+                    });
+
+                    const data = await response.json();
+                    let botReply = data.response;
+
+                    // Si la IA terminó el flujo y manda el resumen
+                    if (botReply.includes("¡Listo! He reservado tu espacio")) {
+                        
+                        let resumenFinal = "Resumen de la consulta:\n\n";
+                        const match = botReply.match(/\[RESUMEN\]([\s\S]*?)\[\/RESUMEN\]/);
+                        
+                        if (match && match[1]) {
+                            resumenFinal += match[1].trim();
+                        } else {
+                            resumenFinal += chatHistory.map(m => `${m.role === 'user' ? 'Cliente' : 'IA'}: ${m.content}`).join('\n');
+                        }
+
+                        resumenFinal = removeEmojis(resumenFinal).replace(/\*\*/g, '');
+
+                        // Mensaje final a WhatsApp
+                        const textoWhatsApp = `*¡Hola! Vengo del Asesor Virtual de la página web.*\n\n${resumenFinal}\n\n_Quedo atento para confirmar mi cita._`;
+                        const urlWA = `https://wa.me/573174827958?text=${encodeURIComponent(textoWhatsApp)}`;
+                        
+                        // Inyectamos el botón al mensaje
+                        botReply += `<br><br><a href="${urlWA}" target="_blank" class="inline-block bg-gold text-black font-bold px-4 py-2 rounded text-xs mt-2">Confirmar Cita por WhatsApp</a>`;
+                    }
+
+                    addMessage(botReply, 'bot');
+                    chatHistory.push({ role: "assistant", content: data.response });
+
+                } catch (error) {
+                    addMessage("Error de conexión. Por favor, escríbenos directamente por WhatsApp.", 'bot');
+                }
+            });
+        }
+
+        chatSend.addEventListener('click', () => {
+            const msg = chatInput.value.trim();
+            if (msg) { processUserMessage(msg); chatInput.value = ''; }
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const msg = chatInput.value.trim();
+                if (msg) { processUserMessage(msg); chatInput.value = ''; }
+            }
+        });
+    </script>
+</body>
+</html>
