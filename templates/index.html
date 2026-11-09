@@ -5,11 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diseños Logo Oro 18k | Alta Joyería Cali</title>
     
+    <!-- ========================================== -->
+    <!-- ETIQUETAS PARA REDES SOCIALES (WHATSAPP, FB) -->
+    <!-- ========================================== -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tudominio.com/"> 
+    <meta property="og:url" content="https://disenoslogo18k.onrender.com/"> 
     <meta property="og:title" content="Diseños Logo Oro 18k | Alta Joyería en Cali">
     <meta property="og:description" content="Descubre piezas únicas de oro 18k. Anillos de compromiso, cadenas y argollas personalizadas en C.C. Jardín Plaza, Cali.">
-    <meta property="og:image" content="https://tudominio.com/static/portada.jpg">
+    
+    <!-- AQUÍ ESTÁ LA MAGIA CON TU NUEVO TAMAÑO DE IMAGEN -->
+    <meta property="og:image" content="https://disenoslogo18k.onrender.com/static/portada.jpg">
+    <meta property="og:image:width" content="1424">
+    <meta property="og:image:height" content="752">
+
+    <!-- Etiquetas para Twitter (X) -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://disenoslogo18k.onrender.com/">
+    <meta name="twitter:title" content="Diseños Logo Oro 18k | Alta Joyería en Cali">
+    <meta name="twitter:description" content="Descubre piezas únicas de oro 18k. Anillos de compromiso, cadenas y argollas personalizadas en C.C. Jardín Plaza, Cali.">
+    <meta name="twitter:image" content="https://disenoslogo18k.onrender.com/static/portada.jpg">
     
     <link rel="icon" href="/static/logo.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -63,7 +77,7 @@
         </div>
     </nav>
 
-        <header class="pt-32 pb-20 px-6 relative flex items-center justify-center min-h-[90vh] overflow-hidden">
+    <header class="pt-32 pb-20 px-6 relative flex items-center justify-center min-h-[90vh] overflow-hidden">
         <div class="absolute inset-0 z-0 opacity-40 bg-cover bg-center" style="background-image: url('/static/hero.jpg');"></div>
         
         <div class="relative z-10 max-w-4xl mx-auto text-center px-4" data-aos="fade-up" data-aos-duration="1000">
@@ -227,7 +241,6 @@
             <button id="chat-close" class="text-gray-400 hover:text-white text-3xl leading-none px-2 cursor-pointer">&times;</button>
         </div>
         <div id="chat-messages" class="flex-1 p-4 overflow-y-auto flex flex-col gap-2">
-            <!-- Mensaje inicial persuasivo -->
             <div class="chat-message chat-bot">Buenos días/tardes. ✨ Bienvenido(a) a <b>Diseños Logo Oro 18k</b>. Soy su asesor personal en alta joyería. Cuénteme, ¿en qué ocasión especial está pensando para adquirir una pieza? (Y si me regala su nombre, será un placer atenderle).</div>
         </div>
         <div class="p-3 border-t border-gray-800 bg-black flex gap-2 shrink-0">
@@ -279,9 +292,7 @@
             if (sender === 'user') {
                 msgDiv.textContent = text; 
             } else {
-                // Ocultamos el bloque de resumen en la vista del chat
                 let displayText = text.replace(/\[RESUMEN\][\s\S]*?\[\/RESUMEN\]/g, '').trim();
-                // Si solo quedó el texto de cierre, lo mostramos normal
                 msgDiv.innerHTML = displayText;
             }
             chatMessages.appendChild(msgDiv);
@@ -322,7 +333,6 @@
                     const data = await response.json();
                     let botReply = data.response;
 
-                    // Si la IA terminó el flujo y manda el resumen
                     if (botReply.includes("¡Listo! He reservado tu espacio")) {
                         
                         let resumenFinal = "Resumen de la consulta:\n\n";
@@ -336,11 +346,10 @@
 
                         resumenFinal = removeEmojis(resumenFinal).replace(/\*\*/g, '');
 
-                        // Mensaje final a WhatsApp
                         const textoWhatsApp = `*¡Hola! Vengo del Asesor Virtual de la página web.*\n\n${resumenFinal}\n\n_Quedo atento para confirmar mi cita._`;
+                        
                         const urlWA = `https://wa.me/573174827958?text=${encodeURIComponent(textoWhatsApp)}`;
                         
-                        // Inyectamos el botón al mensaje
                         botReply += `<br><br><a href="${urlWA}" target="_blank" class="inline-block bg-gold text-black font-bold px-4 py-2 rounded text-xs mt-2">Confirmar Cita por WhatsApp</a>`;
                     }
 
