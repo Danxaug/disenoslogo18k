@@ -52,6 +52,14 @@ def init_db():
 
 init_db()
 
+# ==========================================
+# RUTA DE SALUD (Para UptimeRobot)
+# ==========================================
+# Acepta peticiones GET y HEAD para que el monitor no falle
+@app.api_route("/health", methods=["GET", "HEAD"])
+async def health_check():
+    return {"status": "ok"}
+
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     return templates.TemplateResponse(request=request, name="index.html")
@@ -103,7 +111,7 @@ async def chat_with_ai(request: Request, data: ChatRequest):
     - NUNCA cierres la conversación bruscamente. Si el cliente hace una pregunta, respóndela antes de pedirle otro dato.
     - Si el cliente dice "quiero más asesoría" o "cuéntame más", dale detalles de nuestros materiales, la durabilidad del oro 18k y opciones de personalización.
     - Destaca que el Oro 18k es la mejor inversión y no se oxida.
-    - Haz máximo 1 o 2 preguntas por mensaje para no abrumar. Deja que el cliente hable, habla en millones de pesos 2.000.000, 5.0000.0000, etc.
+    - Haz máximo 1 o 2 preguntas por mensaje para no abrumar. Deja que el cliente hable.
 
     REGLA DE CIERRE (CRÍTICA):
     SOLO cuando ya tengas los 4 datos (Nombre, Presupuesto, Tipo de joya con detalles, y Fecha/Hora), despídete con esta frase EXACTA al final de tu mensaje:
@@ -131,7 +139,7 @@ async def chat_with_ai(request: Request, data: ChatRequest):
             chat_completion = client.chat.completions.create(
                 messages=messages,
                 model=modelo, 
-                temperature=0.5, # Subimos un poco la temperatura para que sea más conversacional y menos rígido
+                temperature=0.5, 
                 max_tokens=800,
             )
             return {"response": chat_completion.choices[0].message.content}
