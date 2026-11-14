@@ -17,7 +17,6 @@ load_dotenv()
 
 app = FastAPI()
 
-# Límite de peticiones (Seguridad contra spam)
 limiter = Limiter(key_func=get_remote_address)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
@@ -28,13 +27,16 @@ templates = Jinja2Templates(directory="templates")
 # ==========================================
 # CONFIGURACIÓN DE GROQ
 # ==========================================
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=GROQ_API_KEY)
+CLAVES_GROQ = [
+    os.getenv("GROQ_API_KEY"),
+    os.getenv("GROQ_API_KEY_2") 
+]
+CLAVES_GROQ = [k for k in CLAVES_GROQ if k]
 
 MODELOS_GROQ = [
-    "openai/gpt-oss-20b",     
-    "openai/gpt-oss-120b",    
-    "qwen/qwen3.8-27b"        
+    "llama-3.3-70b-versatile", # El más inteligente y estable actualmente
+    "llama-3.1-8b-instant",    # El más rápido como respaldo
+    "openai/gpt-oss-20b"       # Tercer respaldo
 ]
 
 def init_db():
@@ -52,10 +54,6 @@ def init_db():
 
 init_db()
 
-# ==========================================
-# RUTA DE SALUD (Para UptimeRobot)
-# ==========================================
-# Acepta peticiones GET y HEAD para que el monitor no falle
 @app.api_route("/health", methods=["GET", "HEAD"])
 async def health_check():
     return {"status": "ok"}
@@ -89,6 +87,13 @@ class ChatRequest(BaseModel):
 @app.post("/chat")
 @limiter.limit("20/minute")
 async def chat_with_ai(request: Request, data: ChatRequest):
+    # --- DIAGNÓSTICO EN LOGS ---
+    if not CLAVES_GROQ:
+        print("❌ ERROR CRÍTICO: No se encontró la variable GROQ_API_KEY en Render.")
+        return {"response": "Error de configuración en el servidor. (Falta API Key)."}
+    else:
+        print(f"✅ Intentando conectar a Groq usando la clave que empieza con: {CLAVES_GROQ[0][:8]}...")
+
     system_prompt = """
     Eres el Asesor Comercial VIP y Maestro Orfebre de "Diseños Logo Oro 18k", en Cali, Colombia.
     Eres un experto en ventas consultivas de alta joyería. Tu tono es elegante, empático, persuasivo y muy conversacional.
@@ -97,31 +102,26 @@ async def chat_with_ai(request: Request, data: ChatRequest):
     TU MISIÓN:
     Guiar al cliente a agendar una cita presencial en nuestro local (C.C. Jardín Plaza), pero ANTES debes ayudarle a elegir su joya ideal mediante una conversación fluida.
 
-    FLUJO DE ASESORÍA (No lo hagas como un formulario, hazlo natural):
-    1. Escucha su motivación (bodas, aniversarios, regalos) y valídala con empatía.
-    2. Si el cliente quiere profundizar, ofrécele opciones de:
-       - Tipo de oro: Amarillo, Blanco o Rosado.
-       - Tipo de joya: Anillos (solitario, con piedras), Cadenas (cubana, barbada), Pulseras, Aretes, etc.
-       - Detalles especiales: Grabados, tejidos especiales, tipo de piedra (diamante, esmeralda, etc.).
-    3. Pídele su nombre completo (si no lo ha dado) para personalizar la atención.
+    FLUJO DE ASESORÍA:
+    1. Escucha su motivación y valídala con empatía.
+    2. Ofrécele opciones (Tipo de oro: Amarillo/Blanco/Rosado, Tipo de joya, Grabados, Piedras).
+    3. Pídele su nombre completo.
     4. Pregunta su presupuesto aproximado (enmárcalo como "inversión").
     5. Pregunta qué día y a qué hora le gustaría visitarnos.
 
     REGLAS DE ORO:
-    - NUNCA cierres la conversación bruscamente. Si el cliente hace una pregunta, respóndela antes de pedirle otro dato.
-    - Si el cliente dice "quiero más asesoría" o "cuéntame más", dale detalles de nuestros materiales, la durabilidad del oro 18k y opciones de personalización.
+    - NUNCA cierres la conversación bruscamente. Responde sus dudas antes de pedir otro dato.
     - Destaca que el Oro 18k es la mejor inversión y no se oxida.
-    - Haz máximo 1 o 2 preguntas por mensaje para no abrumar. Deja que el cliente hable.
+    - Haz máximo 1 o 2 preguntas por mensaje.
 
-    REGLA DE CIERRE (CRÍTICA):
-    SOLO cuando ya tengas los 4 datos (Nombre, Presupuesto, Tipo de joya con detalles, y Fecha/Hora), despídete con esta frase EXACTA al final de tu mensaje:
+    REGLA DE CIERRE:
+    SOLO cuando tengas los 4 datos (Nombre, Presupuesto, Joya, Fecha/Hora), despídete con:
     "¡Listo! He reservado tu espacio VIP. Haz clic en el botón de abajo para confirmar por WhatsApp."
-    Y justo antes de esa frase, genera el bloque de resumen:
-
+    Y genera el bloque:
     [RESUMEN]
-    Nombre: (Nombre completo)
+    Nombre: (Nombre)
     Presupuesto: (Presupuesto)
-    Interés: (Joya, tipo de oro, grabados, etc.)
+    Interés: (Joya y detalles)
     Cita: (Día y hora)
     [/RESUMEN]
     
@@ -133,18 +133,22 @@ async def chat_with_ai(request: Request, data: ChatRequest):
         messages.append({"role": msg.role, "content": msg.content})
     messages.append({'role': 'user', 'content': data.message})
 
-    # Sistema de respaldo anti-errores
-    for modelo in MODELOS_GROQ:
-        try:
-            chat_completion = client.chat.completions.create(
-                messages=messages,
-                model=modelo, 
-                temperature=0.5, 
-                max_tokens=800,
-            )
-            return {"response": chat_completion.choices[0].message.content}
-        except Exception as e:
-            print(f"⚠️ Falló el modelo {modelo}. Intentando el siguiente... Error: {e}")
-            continue
+    # SISTEMA DE RESPALDO
+    for clave in CLAVES_GROQ:
+        client = Groq(api_key=clave)
+        for modelo in MODELOS_GROQ:
+            try:
+                chat_completion = client.chat.completions.create(
+                    messages=messages,
+                    model=modelo, 
+                    temperature=0.5, 
+                    max_tokens=800,
+                )
+                print(f"✅ Éxito con el modelo: {modelo}")
+                return {"response": chat_completion.choices[0].message.content}
+            except Exception as e:
+                # ESTO ES LO QUE VERÁS EN LOS LOGS SI FALLA
+                print(f"⚠️ Falló con el modelo {modelo}. Error: {e}")
+                continue 
 
     return {"response": "En este momento nuestros asesores están ocupados. Por favor, haz clic en el botón de WhatsApp para una atención inmediata."}
