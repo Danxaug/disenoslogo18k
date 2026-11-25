@@ -25,22 +25,27 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # ==========================================
-# CONFIGURACIÓN DE GROQ
+# CONFIGURACIÓN DE GROQ (CORREGIDO PARA VERCEL)
 # ==========================================
+# Vercel usa GROQ_API_KEY, no GROQ_KEY
 CLAVES_GROQ = [
     os.getenv("GROQ_API_KEY"),
+    os.getenv("GROQ_KEY"),  # Respaldo por si usaste ese nombre
     os.getenv("GROQ_API_KEY_2") 
 ]
 CLAVES_GROQ = [k for k in CLAVES_GROQ if k]
 
 MODELOS_GROQ = [
-    "llama-3.3-70b-versatile", # El más inteligente y estable actualmente
-    "llama-3.1-8b-instant",    # El más rápido como respaldo
-    "openai/gpt-oss-20b"       # Tercer respaldo
+    "llama-3.3-70b-versatile", 
+    "llama-3.1-8b-instant",    
+    "openai/gpt-oss-20b"       
 ]
 
+# Base de datos en memoria para Vercel (los datos se pierden al reiniciar)
+DB_PATH = ":memory:" 
+
 def init_db():
-    conn = sqlite3.connect("pedidos.db")
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS pedidos (
@@ -65,7 +70,7 @@ async def home(request: Request):
 @app.post("/procesar_pedido")
 @limiter.limit("5/minute")
 async def procesar_pedido(request: Request, nombre: str = Form(...), telefono: str = Form(...), interes: str = Form(...)):
-    conn = sqlite3.connect("pedidos.db")
+    conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
     cursor.execute("INSERT INTO pedidos (nombre, telefono, interes) VALUES (?, ?, ?)", (nombre, telefono, interes))
     conn.commit()
@@ -89,43 +94,33 @@ class ChatRequest(BaseModel):
 async def chat_with_ai(request: Request, data: ChatRequest):
     # --- DIAGNÓSTICO EN LOGS ---
     if not CLAVES_GROQ:
-        print("❌ ERROR CRÍTICO: No se encontró la variable GROQ_API_KEY en Render.")
-        return {"response": "Error de configuración en el servidor. (Falta API Key)."}
+        print("❌ ERROR CRÍTICO: No se encontró GROQ_API_KEY ni GROQ_KEY en Vercel.")
+        return {"response": "Error de configuración del servidor. Por favor contáctanos por WhatsApp."}
     else:
-        print(f"✅ Intentando conectar a Groq usando la clave que empieza con: {CLAVES_GROQ[0][:8]}...")
+        print(f"✅ Conectando a Groq con clave: {CLAVES_GROQ[0][:8]}...")
 
     system_prompt = """
     Eres el Asesor Comercial VIP y Maestro Orfebre de "Diseños Logo Oro 18k", en Cali, Colombia.
-    Eres un experto en ventas consultivas de alta joyería. Tu tono es elegante, empático, persuasivo y muy conversacional.
-    NO eres un robot. Eres como un amigo experto que asesora con calma.
+    Tu tono es elegante, empático y muy conversacional. NO eres un robot.
 
     TU MISIÓN:
-    Guiar al cliente a agendar una cita presencial en nuestro local (C.C. Jardín Plaza), pero ANTES debes ayudarle a elegir su joya ideal mediante una conversación fluida.
+    Guiar al cliente a agendar una cita en C.C. Jardín Plaza, ayudándole primero a elegir su joya ideal.
 
-    FLUJO DE ASESORÍA:
-    1. Escucha su motivación y valídala con empatía.
-    2. Ofrécele opciones (Tipo de oro: Amarillo/Blanco/Rosado, Tipo de joya, Grabados, Piedras).
-    3. Pídele su nombre completo.
-    4. Pregunta su presupuesto aproximado (enmárcalo como "inversión").
-    5. Pregunta qué día y a qué hora le gustaría visitarnos.
+    FLUJO:
+    1. Valida su motivación con empatía.
+    2. Ofrece opciones (oro amarillo/blanco/rosado, tipo de joya, grabados).
+    3. Pide nombre completo.
+    4. Pregunta presupuesto ("inversión").
+    5. Pregunta día/hora preferida.
 
-    REGLAS DE ORO:
-    - NUNCA cierres la conversación bruscamente. Responde sus dudas antes de pedir otro dato.
-    - Destaca que el Oro 18k es la mejor inversión y no se oxida.
-    - Haz máximo 1 o 2 preguntas por mensaje.
+    REGLAS:
+    - Máximo 1-2 preguntas por mensaje.
+    - Destaca que el Oro 18k no se oxida.
+    - NUNCA uses asteriscos (**).
 
-    REGLA DE CIERRE:
-    SOLO cuando tengas los 4 datos (Nombre, Presupuesto, Joya, Fecha/Hora), despídete con:
-    "¡Listo! He reservado tu espacio VIP. Haz clic en el botón de abajo para confirmar por WhatsApp."
-    Y genera el bloque:
-    [RESUMEN]
-    Nombre: (Nombre)
-    Presupuesto: (Presupuesto)
-    Interés: (Joya y detalles)
-    Cita: (Día y hora)
-    [/RESUMEN]
-    
-    NUNCA uses doble asterisco (**).
+    CIERRE (solo con los 4 datos):
+    "¡Listo! He reservado tu espacio VIP. Haz clic abajo para confirmar por WhatsApp."
+    Y agrega: [RESUMEN] Nombre: X, Presupuesto: Y, Interés: Z, Cita: W [/RESUMEN]
     """
     
     messages = [{'role': 'system', 'content': system_prompt}]
@@ -144,11 +139,10 @@ async def chat_with_ai(request: Request, data: ChatRequest):
                     temperature=0.5, 
                     max_tokens=800,
                 )
-                print(f"✅ Éxito con el modelo: {modelo}")
+                print(f"✅ Éxito con modelo: {modelo}")
                 return {"response": chat_completion.choices[0].message.content}
             except Exception as e:
-                # ESTO ES LO QUE VERÁS EN LOS LOGS SI FALLA
-                print(f"⚠️ Falló con el modelo {modelo}. Error: {e}")
+                print(f"⚠️ Falló modelo {modelo}: {e}")
                 continue 
 
-    return {"response": "En este momento nuestros asesores están ocupados. Por favor, haz clic en el botón de WhatsApp para una atención inmediata."}
+    return {"response": "Nuestros asesores están ocupados. Haz clic en WhatsApp para atención inmediata."}
